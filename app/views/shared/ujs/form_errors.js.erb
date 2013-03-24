@@ -1,0 +1,8 @@
+<%
+info[0].each_with_index do |message|
+    flash[message[0].to_sym] = message[1]
+end
+%>
+$("#alert").html("<%= escape_javascript display_flash! %>");
+$("#alert").show(300);
+$(window).scrollTop($('#alert').position().top-100)
