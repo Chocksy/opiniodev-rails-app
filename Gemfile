@@ -29,6 +29,7 @@ end
 
 gem "twitter-bootstrap-rails"
 gem 'jquery-rails'
+gem 'angularjs-rails'
 
 group :test,:development do
   gem 'rb-fsevent', '~> 0.9.1'

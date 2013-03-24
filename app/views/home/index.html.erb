@@ -1,0 +1,16 @@
+<div class="span12" ng-app="Ideas">
+  <div class="row">
+    <h3>I suggest to you...</h3>
+    <form>
+      <input type="text" placeholder="idea..." ng-model="idea" class="span12"/>
+      Your idea is: "{{idea}}"
+    </form>
+    <div ng-controller='IdeasCtrl'>
+      <ul>
+        <li ng-repeat='idea in ideas'>
+          {{idea.idea}}, {{idea.created_at}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
