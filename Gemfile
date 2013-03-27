@@ -31,6 +31,8 @@ gem "twitter-bootstrap-rails"
 gem 'jquery-rails'
 gem 'angularjs-rails'
 
+gem 'coveralls', require: false
+
 group :test,:development do
   gem 'rb-fsevent', '~> 0.9.1'
   gem "rspec-rails"
