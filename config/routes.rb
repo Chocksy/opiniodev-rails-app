@@ -1,9 +1,9 @@
 OpiniodevRailsApp::Application.routes.draw do
-  resources :users
-
+  match '/auth/:provider/callback' => 'sessions#create', :via => :get
+  match "/signout" => "sessions#destroy", :as => :signout, :via => :get
 
   get "home/index"
-
+  resources :users
   resources :ideas do
     get :search, :on => :collection
   end

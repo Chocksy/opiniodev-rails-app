@@ -6,6 +6,11 @@
         1,
         null,
         null,
+        1,
+        1,
+        null,
+        null,
+        null,
         1
       ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/config/application.rb": [
@@ -86,6 +91,17 @@
         null,
         1
       ],
+      "/Users/razvanciocanel/Development/opiniodev-rails-app/config/heroku_env.rb": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1
+      ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/config/environments/test.rb": [
         1,
         null,
@@ -156,6 +172,12 @@
         null,
         null
       ],
+      "/Users/razvanciocanel/Development/opiniodev-rails-app/config/initializers/omniauth.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/config/initializers/secret_token.rb": [
         null,
         null,
@@ -190,6 +212,12 @@
       "/Users/razvanciocanel/Development/opiniodev-rails-app/app/controllers/application_controller.rb": [
         1,
         1,
+        1,
+        null,
+        1,
+        1,
+        3,
+        null,
         null
       ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/app/helpers/application_helper.rb": [
@@ -292,6 +320,10 @@
         null
       ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/app/helpers/ideas_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/razvanciocanel/Development/opiniodev-rails-app/app/helpers/sessions_helper.rb": [
         1,
         null
       ],
@@ -420,6 +452,21 @@
         null,
         null
       ],
+      "/Users/razvanciocanel/Development/opiniodev-rails-app/app/controllers/sessions_controller.rb": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null
+      ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/app/controllers/users_controller.rb": [
         1,
         null,
@@ -512,8 +559,53 @@
         1,
         1,
         1,
+        1,
         null,
         1,
+        null,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/Users/razvanciocanel/Development/opiniodev-rails-app/app/models/ability.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/spec/factories.rb": [
@@ -535,10 +627,10 @@
       "/Users/razvanciocanel/Development/opiniodev-rails-app/config/routes.rb": [
         1,
         1,
-        null,
-        null,
         1,
         null,
+        1,
+        1,
         1,
         1,
         null,
@@ -552,6 +644,13 @@
         null
       ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/spec/controllers/ideas_controller_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/razvanciocanel/Development/opiniodev-rails-app/spec/controllers/sessions_controller_spec.rb": [
         1,
         null,
         1,
@@ -772,6 +871,23 @@
         1,
         null
       ],
+      "/Users/razvanciocanel/Development/opiniodev-rails-app/spec/helpers/sessions_helper_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null
+      ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/spec/helpers/users_helper_spec.rb": [
         1,
         null,
@@ -951,6 +1067,6 @@
         null
       ]
     },
-    "timestamp": 1364653853
+    "timestamp": 1364660566
   }
 }

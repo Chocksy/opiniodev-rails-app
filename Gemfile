@@ -11,6 +11,10 @@ gem "mongoid"
 gem "bson"
 gem 'bson_ext'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'cancan'
 
 # Gems used only for assets and not required
 # in production environments by default.
