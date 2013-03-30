@@ -10,9 +10,7 @@ matrix:
 notifications:
   #irc: "irc.freenode.org#railsadmin"
 before_script:
-  - cd spec/dummy_app
   - bundle install
-  - bundle exec rake opiniodev:prepare_ci_env db:create db:migrate
-  - cd ../../
+  - bundle exec rspec spec
 services:
   - mongodb
