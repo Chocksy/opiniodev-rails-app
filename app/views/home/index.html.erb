@@ -1,16 +1,23 @@
-<div class="span12">
-  <div class="row" ng-controller="IdeasCtrl">
+<section ng-controller="searchCtrl">
     <h3>I suggest to you...</h3>
-    <form>
-      <input type="text" placeholder="idea..." ng-model="idea.title" class="span12"/>
-      Your idea is: "{{idea.title}}"
+    <form ng-submit="addIdea()">
+      <input type="text" placeholder="idea..." id="idea_search" ng-model="new_idea.title" class="input-block-level"/>
+      <div ng-show="!ideas.length">
+        <div class="controls controls-row">
+          <textarea ng-model="new_idea.description" class="span7" placeholder="Describe your idea"></textarea>
+        </div>
+        <div class="controls controls-row">
+          <button type="submit" class="btn btn-primary">Post idea</button>
+          <a href="#">Cancel</a>
+        </div>
+
+      </div>
     </form>
     <div>
-      <ul>
-        <li ng-repeat='idea in ideas'>
-          {{idea.title}}, {{idea.created_at}}
-        </li>
-      </ul>
+        <blockquote ng-repeat="idea in ideas">
+          <h3>{{idea.title}}</h3>
+          <p>{{idea.description}}</p>
+          <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+        </blockquote>
     </div>
-  </div>
-</div>
+</section>

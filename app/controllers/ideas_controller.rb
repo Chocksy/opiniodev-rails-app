@@ -1,7 +1,7 @@
 class IdeasController < ApplicationController
 
   def index
-    @ideas = Idea.all
+    @ideas = Idea.all.order_by(:created_at.desc)
 
     respond_to do |format|
       format.json { render :json => @ideas }
@@ -21,7 +21,7 @@ class IdeasController < ApplicationController
 
   # GET /ideas/search/:q
   def search
-    @ideas = Idea.find_by(title:params[:q])
+    @ideas = Idea.any_of({:title=>/.*#{params[:q]}.*/i})
     respond_to do |format|
       format.json { render :json => @ideas }
     end

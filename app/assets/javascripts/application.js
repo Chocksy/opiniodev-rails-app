@@ -16,4 +16,5 @@
 //= require angular-bootstrap
 //= require angular-resource
 //= require twitter/bootstrap
+//= require main
 //= require_tree .
