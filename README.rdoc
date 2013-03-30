@@ -3,3 +3,5 @@
 {<img src="https://travis-ci.org/Chocksy/opiniodev-rails-app.png?branch=master" alt="Build Status" />}[https://travis-ci.org/Chocksy/opiniodev-rails-app] {<img src="https://gemnasium.com/Chocksy/opiniodev-rails-app.png" alt="Dependency Status" />}[https://gemnasium.com/Chocksy/opiniodev-rails-app] {<img src="https://coveralls.io/repos/Chocksy/opiniodev-rails-app/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/Chocksy/opiniodev-rails-app]
 
 A simple opinion based forum for your application built with mongodb and rails.
+
+== {DEMO}[http://opiniodev.herokuapp.com]
