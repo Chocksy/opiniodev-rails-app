@@ -1,5 +1,5 @@
 OpiniodevRailsApp::Application.routes.draw do
-  match '/auth/:provider/callback' => 'sessions#create', :via => :get
+  match '/auth/:provider/callback' => 'sessions#create', :via => [:post,:get]
   match "/signout" => "sessions#destroy", :as => :signout, :via => :get
 
   get "home/index"

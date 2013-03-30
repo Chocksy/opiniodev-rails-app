@@ -251,7 +251,6 @@ DEPENDENCIES
   less-rails
   mongodb
   mongoid
-  omniauth
   omniauth-facebook
   omniauth-twitter
   rails (= 3.2.13)

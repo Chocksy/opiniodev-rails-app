@@ -5,9 +5,9 @@
 # Resource
 opiniodevApp = angular.module('opiniodevApp',[])
 
-opiniodevApp.controller('IdeasCtrl', ($scope,$http) ->
+opiniodevApp.controller 'IdeasCtrl',["$scope","$http", ($scope,$http) ->
   $http.get("/ideas.json").success (data) ->
     $scope.ideas = data
     console.log data
-)
+]
 

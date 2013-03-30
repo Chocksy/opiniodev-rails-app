@@ -11,7 +11,6 @@ gem "mongoid"
 gem "bson"
 gem 'bson_ext'
 
-gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'cancan'
