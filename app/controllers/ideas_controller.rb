@@ -5,7 +5,6 @@ class IdeasController < ApplicationController
 
     respond_to do |format|
       format.json { render :json => @ideas }
-      format.html
     end
   end
 

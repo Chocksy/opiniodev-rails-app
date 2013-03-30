@@ -1,12 +1,8 @@
 require 'spec_helper'
 
 describe "Home" do
-  it "should have sign up link" do
+  it "should have sign in link" do
     visit root_path
-    click_link "Sign Up"
-  end
-  it "should have login link" do
-    visit root_path
-    click_link "Sign In"
+    page.should have_content "Sign in"
   end
 end
