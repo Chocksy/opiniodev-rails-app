@@ -1,10 +1,15 @@
 <section ng-controller="searchCtrl">
     <h3>I suggest to you...</h3>
     <form ng-submit="addIdea()">
-      <input type="text" placeholder="idea..." id="idea_search" ng-model="new_idea.title" class="input-block-level"/>
+      <input type="text" placeholder="Idea..." id="idea_search" ng-model="new_idea.title" class="input-block-level"/>
       <div ng-show="!ideas.length">
         <div class="controls controls-row">
           <textarea ng-model="new_idea.description" class="span7" placeholder="Describe your idea"></textarea>
+        </div>
+        <div class="controls controls-row">
+          <% if current_user %>
+            <%= current_user.name %>
+          <% end %>
         </div>
         <div class="controls controls-row">
           <button type="submit" class="btn btn-primary">Post idea</button>
@@ -17,7 +22,7 @@
         <blockquote ng-repeat="idea in ideas">
           <h3>{{idea.title}}</h3>
           <p>{{idea.description}}</p>
-          <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+          <small>posted by <cite title="Source Title">{{ idea.user.name }}</cite></small>
         </blockquote>
     </div>
 </section>

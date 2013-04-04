@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 
 gem 'mongodb'
 gem "mongoid"
+gem 'mongoid-pagination'
 gem "bson"
 gem 'bson_ext'
 

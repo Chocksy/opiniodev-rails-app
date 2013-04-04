@@ -61,8 +61,8 @@
               Welcome, <%= current_user.name %>!
               <%= link_to "Sign Out", signout_path %>
           <% else %>
-              <%= link_to "Sign in with Twitter", "/auth/twitter" %>
-              <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+              <%= link_to "Sign in with Twitter", "/auth/twitter",:class=>"btn btn-small" %>
+              <%= link_to "Sign in with Facebook", "/auth/facebook",:class=>"btn btn-small" %>
           <% end %>
         </ul>
       </div><!--/.nav-collapse -->

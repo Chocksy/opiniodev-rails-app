@@ -357,6 +357,13 @@
         null,
         null,
         null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
         null,
         1,
         0,
@@ -440,6 +447,7 @@
         null
       ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/app/models/idea.rb": [
+        1,
         1,
         1,
         1,
@@ -632,6 +640,7 @@
         1,
         1,
         1,
+        1,
         null,
         null,
         1,
@@ -643,7 +652,7 @@
         null
       ]
     },
-    "timestamp": 1364673386
+    "timestamp": 1364805837
   },
   "Cucumber Features": {
     "coverage": {
@@ -862,7 +871,7 @@
         null,
         1,
         1,
-        1,
+        2,
         null,
         null
       ],
@@ -1003,6 +1012,13 @@
         null,
         null,
         null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
         null,
         1,
         0,
@@ -1086,6 +1102,7 @@
         null
       ],
       "/Users/razvanciocanel/Development/opiniodev-rails-app/app/models/idea.rb": [
+        1,
         1,
         1,
         1,
@@ -1278,6 +1295,7 @@
         1,
         1,
         1,
+        1,
         null,
         null,
         1,
@@ -1289,6 +1307,6 @@
         null
       ]
     },
-    "timestamp": 1364672952
+    "timestamp": 1364808540
   }
 }

@@ -1,7 +1,7 @@
 class IdeasController < ApplicationController
 
   def index
-    @ideas = Idea.all.order_by(:created_at.desc)
+    @ideas = Idea.all.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>3)
 
     respond_to do |format|
       format.json { render :json => @ideas }
@@ -16,6 +16,13 @@ class IdeasController < ApplicationController
     respond_to do |format|
       format.json { render :json => @idea }
       format.html
+    end
+  end
+
+  def total_ideas
+    @total_ideas = Idea.count
+    respond_to do |format|
+      format.json { render :json => @total_ideas }
     end
   end
 

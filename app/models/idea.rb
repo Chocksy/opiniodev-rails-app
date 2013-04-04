@@ -1,6 +1,7 @@
 class Idea
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Pagination
   field :title, type: String
   field :description, type: String
 

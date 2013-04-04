@@ -3,9 +3,10 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 # Resource
-window.OpinioDev.controllers.controller 'searchCtrl',["$scope","$http", ($scope,$http) ->
-  $http.get("/ideas.json").success (data) ->
-    $scope.ideas = data
+window.OpinioDev.controllers.controller 'searchCtrl',["$scope","$http","Idea", ($scope,$http,Idea) ->
+  $scope.ideas = Idea.query()
+
+  console.log Idea.total_ideas()
 
   $scope.new_idea = {}
   $("#idea_search").keyup( ()->
@@ -14,12 +15,9 @@ window.OpinioDev.controllers.controller 'searchCtrl',["$scope","$http", ($scope,
   )
 
   $scope.addIdea = ->
-    $scope.ideas.push
-      title: $scope.new_idea.title
-      description: $scope.new_idea.description
 
-    $http.post("/ideas.json",{"idea":$scope.new_idea}).success (data)->
-      console.log data
+    Idea.save $scope.new_idea, ()->
+      $scope.ideas = Idea.query()
 
     $scope.new_idea.title = ""
     $scope.new_idea.description = ""
