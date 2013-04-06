@@ -1,4 +1,4 @@
-window.OpinioDev.factory "Idea", ($resource) ->
+window.OpinioDev.factory "Idea", ["$resource",($resource) ->
   Idea = $resource('/ideas/:id/:action', {id:'@id'},
                     update:
                       method: 'PUT'
@@ -25,3 +25,4 @@ window.OpinioDev.factory "Idea", ($resource) ->
     , cb
 
   Idea
+]
