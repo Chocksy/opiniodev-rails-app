@@ -1,11 +1,12 @@
 class IdeasController < ApplicationController
 
   def index
-    @ideas = Idea.all.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>3)
+    ideas_data = Idea.all
+    @total_ideas = ideas_data.count
+    ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>3)
 
-    respond_to do |format|
-      format.json { render :json => @ideas }
-    end
+    @ideas = ideas_data
+    render :json => {ideas:@ideas,total_ideas:@total_ideas}
   end
 
   # GET /ideas/1
@@ -19,20 +20,20 @@ class IdeasController < ApplicationController
     end
   end
 
-  def total_ideas
-    @total_ideas = Idea.count
-    respond_to do |format|
-      format.json { render :json => @total_ideas }
-    end
-  end
-
   # GET /ideas/search/:q
   def search
-    @ideas = Idea.any_of({:title=>/.*#{params[:q]}.*/i})
-    respond_to do |format|
-      format.json { render :json => @ideas }
+    ideas_data = Idea.all
+    if params[:q] != "undefined"
+      ideas_data = ideas_data.any_of({:title=>/.*#{params[:q]}.*/i})
     end
+
+    @total_ideas = ideas_data.count
+    ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>3)
+    @ideas = ideas_data
+
+    render :json => {ideas:@ideas,total_ideas:@total_ideas}
   end
+
 
   # PUT /ideas/1
   # GET /ideas/1.xml

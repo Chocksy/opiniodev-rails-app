@@ -6,7 +6,6 @@ OpiniodevRailsApp::Application.routes.draw do
   resources :users
   resources :ideas do
     get :search, :on => :collection
-    get :total_ideas, :on => :collection
   end
 
   root :to => 'home#index'

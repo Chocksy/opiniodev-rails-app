@@ -10,7 +10,7 @@ matrix:
 notifications:
   #irc: "irc.freenode.org#railsadmin"
 before_script:
-  - bundle install
+  #- bundle install
   #- bundle exec rspec spec removed this because travis already runs it.
 services:
   - mongodb
