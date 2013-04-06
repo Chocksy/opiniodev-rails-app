@@ -3,7 +3,7 @@ class IdeasController < ApplicationController
   def index
     ideas_data = Idea.all
     @total_ideas = ideas_data.count
-    ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>3)
+    ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>params[:per_page])
 
     @ideas = ideas_data
     render :json => {ideas:@ideas,total_ideas:@total_ideas}
@@ -28,7 +28,7 @@ class IdeasController < ApplicationController
     end
 
     @total_ideas = ideas_data.count
-    ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>3)
+    ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>params[:per_page])
     @ideas = ideas_data
 
     render :json => {ideas:@ideas,total_ideas:@total_ideas}

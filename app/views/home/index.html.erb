@@ -25,4 +25,12 @@
           <small>posted by <cite title="Source Title">{{ idea.user.name }}</cite></small>
         </blockquote>
     </div>
+    <ul class="pager" ng-hide="!ideas.length">
+        <li class="previous" ng-class="{disabled: page == 1}">
+          <a href="#" ng-click="previous()" no-href>&laquo; Previous</a>
+        </li>
+        <li class="next" ng-class="{disabled: page*per_page >= total_ideas }">
+            <a href="#" ng-click="next()" no-href>Next &raquo;</a>
+        </li>
+    </ul>
 </section>
