@@ -3,30 +3,33 @@ window.OpinioDev.controller 'searchCtrl',["$scope","$http","Idea", ($scope,$http
   $scope.page        = 1
   $scope.per_page    = 3
   $scope.total_ideas = $scope.page*$scope.per_page
+  $scope.current_user= {name: "Anonymous",email:"anonymous@email.com"}
 
   goTop = ->
     $("html, body").animate({ scrollTop: 0 }, "slow")
 
   getIdeas = ()->
-    Idea.query({page:$scope.page,per_page:$scope.per_page},(data)->
-               $scope.ideas        = data.ideas
-               $scope.total_ideas  = data.total_ideas
-               console.log $scope.total_ideas
-               goTop()
-    )
+    params = {page:$scope.page,per_page:$scope.per_page}
+    if $('#idea_search').val() != ''
+      params.q = $('#idea_search').val()
 
-  getIdeas()
-
-  $scope.new_idea = {}
-  $("#idea_search").keyup( ()->
-    Idea.search({q:$scope.new_idea.title},(data) ->
-      $scope.ideas        = data.ideas
-      $scope.total_ideas  = data.total_ideas
+    Idea.query(params).then((data)->
+                  $scope.ideas        = data[0].ideas
+                  $scope.total_ideas  = data[0].totalIdeas
+                  goTop()
     )
-  )
 
   $scope.$watch("page",()->
     getIdeas()
+  )
+
+  $scope.new_idea = {}
+  $("#idea_search").keyup( ()->
+    #we make a check here to see if the page is bigger than 1 so that we don't make 2 requests
+    if $scope.page>1
+      $scope.page = 1
+    else
+      getIdeas()
   )
 
   $scope.next = ()->
@@ -37,10 +40,19 @@ window.OpinioDev.controller 'searchCtrl',["$scope","$http","Idea", ($scope,$http
     if $scope.page > 1
       $scope.page -= 1
 
-  $scope.addIdea = ->
+  $scope.like = (idea)->
+    idea.votes += 1
+    new Idea({id:idea._id,votes:idea.votes}).update()
 
-    Idea.save $scope.new_idea, ()->
+  $scope.dislike = (idea)->
+    if idea.votes>0
+      idea.votes -= 1
+      new Idea({id:idea._id,votes:idea.votes}).update()
+
+  $scope.addIdea = ->
+    new Idea($scope.new_idea).create().then((result)->
       getIdeas()
+    )
 
     $scope.new_idea.title = ""
     $scope.new_idea.description = ""

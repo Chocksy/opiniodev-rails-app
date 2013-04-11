@@ -18,8 +18,18 @@
 
       </div>
     </form>
-    <div>
-        <blockquote ng-repeat="idea in ideas">
+    <div class="row-fluid" ng-repeat="idea in ideas">
+        <div class="span2">
+          <div class="text-center">
+            <h2>{{idea.votes}}</h2>
+            votes
+          </div>
+          <div class="btn-group">
+            <button class="btn pull-left" ng-click="dislike(idea)"><span class="icon-thumbs-down"></span></button>
+            <button class="btn pull-left" ng-click="like(idea)"><span class="icon-thumbs-up"></span></button>
+          </div>
+        </div>
+        <blockquote class="span10">
           <h3>{{idea.title}}</h3>
           <p>{{idea.description}}</p>
           <small>posted by <cite title="Source Title">{{ idea.user.name }}</cite></small>

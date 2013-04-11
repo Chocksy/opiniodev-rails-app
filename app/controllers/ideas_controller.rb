@@ -2,11 +2,14 @@ class IdeasController < ApplicationController
 
   def index
     ideas_data = Idea.all
+    if params[:q] != "undefined"
+      ideas_data = ideas_data.any_of({:title=>/.*#{params[:q]}.*/i})
+    end
     @total_ideas = ideas_data.count
     ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>params[:per_page])
 
     @ideas = ideas_data
-    render :json => {ideas:@ideas,total_ideas:@total_ideas}
+    render :json => ["ideas"=>@ideas,"total_ideas"=>@total_ideas]
   end
 
   # GET /ideas/1
@@ -20,37 +23,29 @@ class IdeasController < ApplicationController
     end
   end
 
-  # GET /ideas/search/:q
-  def search
-    ideas_data = Idea.all
-    if params[:q] != "undefined"
-      ideas_data = ideas_data.any_of({:title=>/.*#{params[:q]}.*/i})
-    end
-
-    @total_ideas = ideas_data.count
-    ideas_data = ideas_data.order_by(:created_at.desc).paginate(:page=>params[:page],:limit=>params[:per_page])
-    @ideas = ideas_data
-
-    render :json => {ideas:@ideas,total_ideas:@total_ideas}
-  end
-
-
   # PUT /ideas/1
   # GET /ideas/1.xml
   # GET /ideas/1.json                                HTML AND AJAX
   #-------------------------------------------------------------------
   def update
     @idea = Idea.find(params[:id])
-
-    respond_to do |format|
-      if @idea.update_attributes(params)
-        format.html { redirect_to(@idea) }
-        format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:notice => "We updated the idea."] } }
-      else
-        format.html { render :action => "edit",:status => :unprocessable_entity}
-        format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:error=>@idea.errors.full_messages.to_a] } }
-      end
+    params[:idea].delete(:id)
+    if @idea.update_attributes(params[:idea])
+      @success = true
+    else
+      @success = false
     end
+
+    render :json => {success:@success}
+    #respond_to do |format|
+    #  if @idea.update_attributes(params[:idea][:info])
+    #    format.html { redirect_to(@idea) }
+    #    format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:notice => "We updated the idea."] } }
+    #  else
+    #    format.html { render :action => "edit",:status => :unprocessable_entity}
+    #    format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:error=>@idea.errors.full_messages.to_a] } }
+    #  end
+    #end
   end
 
   # GET /ideas/1/edit

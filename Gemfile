@@ -34,6 +34,7 @@ end
 gem "twitter-bootstrap-rails"
 gem 'jquery-rails'
 gem 'angularjs-rails'
+gem 'angularjs-rails-resource'
 
 gem 'coveralls', require: false
 

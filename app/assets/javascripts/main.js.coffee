@@ -1,4 +1,4 @@
-window.OpinioDev = angular.module "OpinioDev", ["ngResource"]
+window.OpinioDev = angular.module "OpinioDev", ["rails"]
 
 window.OpinioDev.directive "noHref", ->
   (scope, element, attrs) ->
