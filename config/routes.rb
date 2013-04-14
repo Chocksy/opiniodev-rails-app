@@ -4,9 +4,7 @@ OpiniodevRailsApp::Application.routes.draw do
 
   get "home/index"
   resources :users
-  resources :ideas do
-    get :search, :on => :collection
-  end
+  resources :ideas
 
   root :to => 'home#index'
 end

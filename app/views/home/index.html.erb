@@ -1,25 +1,27 @@
 <section ng-controller="searchCtrl">
     <h3>I suggest to you...</h3>
-    <form ng-submit="addIdea()">
-      <input type="text" placeholder="Idea..." id="idea_search" ng-model="new_idea.title" class="input-block-level"/>
+    <form name="form" ng-submit="addIdea()" novalidate>
+      <input type="text" placeholder="Idea..." id="idea_search" ng-model="new_idea.title" class="input-block-level" required/>
       <div ng-show="!ideas.length">
         <div class="controls controls-row">
-          <textarea ng-model="new_idea.description" class="span7" placeholder="Describe your idea"></textarea>
+          <textarea ng-model="new_idea.description" class="span7" placeholder="Describe your idea" required></textarea>
         </div>
         <div class="controls controls-row">
-          <% if current_user %>
-            <%= current_user.name %>
-          <% end %>
+          <div class="span6">
+            <input id="current_user" ng-model="new_idea.user_id" type="hidden" required>
+            <p class="lead" ng-show="new_idea.user_id">{{user.name}}</p>
+            <p class="lead" ng-show="!new_idea.user_id">Please sign in first before you post an idea.</p>
+          </div>
         </div>
         <div class="controls controls-row">
-          <button type="submit" class="btn btn-primary">Post idea</button>
-          <a href="#">Cancel</a>
+          <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Post idea</button>
+          <a href="#" ng-click="reset()" ng-disabled="isUnchanged(new_idea)">Cancel</a>
         </div>
 
       </div>
     </form>
     <div class="row-fluid" ng-repeat="idea in ideas">
-        <div class="span2">
+        <div class="span1">
           <div class="text-center">
             <h2>{{idea.votes}}</h2>
             votes
@@ -29,10 +31,10 @@
             <button class="btn pull-left" ng-click="like(idea)"><span class="icon-thumbs-up"></span></button>
           </div>
         </div>
-        <blockquote class="span10">
-          <h3>{{idea.title}}</h3>
+        <blockquote class="span11">
+          <h3><a href="/ideas/{{idea._id}}">{{idea.title}}</a></h3>
           <p>{{idea.description}}</p>
-          <small>posted by <cite title="Source Title">{{ idea.user.name }}</cite></small>
+          <small>posted by <cite title="Source Title">{{ idea.userInfo.name }}</cite></small>
         </blockquote>
     </div>
     <ul class="pager" ng-hide="!ideas.length">

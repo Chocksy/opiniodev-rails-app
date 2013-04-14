@@ -12,5 +12,8 @@ class Idea
   #validations
   validates_presence_of :title
   validates_presence_of :description
+  validates_presence_of :user
+
+  attr_accessible :title,:votes,:description,:user_id
 
 end
