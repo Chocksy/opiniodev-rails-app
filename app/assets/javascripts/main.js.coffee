@@ -9,7 +9,7 @@ window.OpinioDev.controller "mainController", ["$scope","$rootScope","User",($sc
 
   getUser = ()->
     $rootScope.user = {_id:$("#current_user").val()}
-    if $rootScope.user._id != ""
+    if $rootScope.user._id
       User.get($rootScope.user._id).then((result)->
         console.log result
         $scope.user = result

@@ -14,7 +14,7 @@ window.OpinioDev.controller 'searchCtrl',["$scope","$rootScope","$http","Idea", 
 
   getIdeas = ()->
     params = {page:$scope.page,per_page:$scope.per_page}
-    if $scope.new_idea.title != ''
+    if $scope.new_idea.title
       params.q = $scope.new_idea.title
 
     Idea.query(params).then((data)->
