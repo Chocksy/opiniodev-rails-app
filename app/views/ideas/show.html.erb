@@ -15,7 +15,7 @@
     <blockquote class="span11">
       <h3><%= @idea.title%></a></h3>
       <p><%= @idea.description%></p>
-      <small class="text-right">posted by <cite title="Source Title"><%=@idea.user.name%></cite></small>
+      <small class="text-right">posted by <cite title="Source Title"><%=(@idea.user.nil?) ? "Anonymous" : @idea.user.name%></cite></small>
     </blockquote>
   </div>
 </section>
