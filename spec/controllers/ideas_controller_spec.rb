@@ -46,4 +46,24 @@ describe IdeasController do
     end
   end
 
+  describe "GET show" do
+    let(:idea) { create(:idea) }
+
+    it "responds successfully with an HTTP 200 status code" do
+      get :show, {id:idea.id}
+      expect(response).to be_success
+      expect(response.code).to eq("200")
+    end
+
+    it "should get idea" do
+      get :show, {id:idea.id}
+      expect(assigns(:idea)).to eq(idea)
+    end
+
+    it "renders the :show view" do
+      get :show, {id:idea.id}
+      response.should render_template :show
+    end
+  end
+
 end
