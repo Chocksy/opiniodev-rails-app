@@ -1,16 +1,19 @@
-window.OpinioDev.controller 'ideaCtrl',["$scope","$rootScope","$http","Idea", ($scope,$rootScope,$http,Idea) ->
+window.OpinioDev.controller 'ideaCtrl', ["$scope", "$rootScope", "$http", "Idea", ($scope, $rootScope, $http, Idea) ->
   #init variables
-  $scope.idea        = {_id:$('#idea').val(),votes:$('#idea_votes').val()}
+  $scope.idea = {_id: $('#idea').val(), votes: $('#idea_votes').val()}
 
   console.log $scope.idea
 
   $scope.like = ()->
-    $scope.idea.votes = parseInt($scope.idea.votes)+1
-    new Idea({id:$scope.idea._id,votes:$scope.idea.votes}).update()
+    new Idea({vote: 'upvote', id: $scope.idea._id}).update().then((data)=>
+      if data.success == true
+        $scope.idea.votes = parseInt($scope.idea.votes) + 1
+    )
 
   $scope.dislike = ()->
-    #if $scope.idea.votes>0
-      $scope.idea.votes = parseInt($scope.idea.votes)-1
-      new Idea({id:$scope.idea._id,votes:$scope.idea.votes}).update()
+    new Idea({vote: 'downvote', id: $scope.idea._id}).update().then((data)=>
+      if data.success == true
+        $scope.idea.votes = parseInt($scope.idea.votes) - 1
+    )
 ]
 

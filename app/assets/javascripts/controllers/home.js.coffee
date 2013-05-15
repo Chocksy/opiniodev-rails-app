@@ -44,14 +44,16 @@ window.OpinioDev.controller 'searchCtrl',["$scope","$rootScope","$http","Idea", 
       $scope.page -= 1
 
   $scope.like = (idea)->
-    idea.votes += 1
-    new Idea({id:idea._id,votes:idea.votes}).update()
+    new Idea({vote: 'upvote', id: idea._id}).update().then((data)=>
+      if data.success == true
+       idea.votes = parseInt(idea.votes) + 1
+    )
 
   $scope.dislike = (idea)->
-    # allowing negative votes
-    #if idea.votes>0
-      idea.votes -= 1
-      new Idea({id:idea._id,votes:idea.votes}).update()
+    new Idea({vote: 'downvote', id: idea._id}).update().then((data)=>
+      if data.success == true
+        idea.votes = parseInt(idea.votes) - 1
+    )
 
   $scope.reset = ->
     $scope.new_idea = angular.copy({title:"",description:""})
