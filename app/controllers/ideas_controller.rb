@@ -116,11 +116,20 @@ class IdeasController < ApplicationController
   def vote(type)
     @idea = Idea.find(params[:id])
     if current_user.present?
-      if @idea.voted_by.include?(current_user.id)
+      votable = true
+      # search votes by date in descending order, get latest vote of this user and break with outcome
+      @idea.voted_by.sort_by{|hsh| hsh["last_vote"]}.reverse.each do |voter|
+        next if voter["uid"] != current_user.id
+        voter["last_vote"] < 1.day.ago ? votable = true : votable = false
+        break
+      end
+      # error or log vote
+      if !votable
         @locals = {:info => [:error => "Already voted."], :success => false}
       else
-        @idea.voted_by.push(current_user.id)
+        @idea.voted_by.push({:uid => current_user.id,:last_vote =>Time.now})
         type == 'up' ? @idea.votes += 1 : @idea.votes = @idea.votes - 1
+        # update vote count
         params[:idea].delete(:id)
         if @idea.update_attributes(params[:idea])
           @locals = {:info => [:notice => "Idea updated."], :success => true}
