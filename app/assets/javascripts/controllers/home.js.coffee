@@ -48,7 +48,8 @@ window.OpinioDev.controller 'searchCtrl',["$scope","$rootScope","$http","Idea", 
     new Idea({id:idea._id,votes:idea.votes}).update()
 
   $scope.dislike = (idea)->
-    if idea.votes>0
+    # allowing negative votes
+    #if idea.votes>0
       idea.votes -= 1
       new Idea({id:idea._id,votes:idea.votes}).update()
 

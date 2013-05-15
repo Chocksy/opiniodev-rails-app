@@ -9,7 +9,7 @@ window.OpinioDev.controller 'ideaCtrl',["$scope","$rootScope","$http","Idea", ($
     new Idea({id:$scope.idea._id,votes:$scope.idea.votes}).update()
 
   $scope.dislike = ()->
-    if $scope.idea.votes>0
+    #if $scope.idea.votes>0
       $scope.idea.votes = parseInt($scope.idea.votes)-1
       new Idea({id:$scope.idea._id,votes:$scope.idea.votes}).update()
 ]
