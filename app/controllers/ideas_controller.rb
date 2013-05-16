@@ -116,31 +116,38 @@ class IdeasController < ApplicationController
   def vote(type)
     @idea = Idea.find(params[:id])
     if current_user.present?
-      votable = true
+      # 0 24hrs pending, 1 updated last_vote, 2 create new vote
+      voted = 2
       # search votes by date in descending order, get latest vote of this user and break with outcome
-      @idea.voted_by.sort_by{|hsh| hsh["last_vote"]}.reverse.each do |voter|
-        next if voter["uid"] != current_user.id
-        voter["last_vote"] < 1.day.ago ? votable = true : votable = false
+      @idea.voted_by.each do |voter|
+        next if voter["uid"]!= current_user.id
+        voter["last_vote"] < 1.day.ago ? voted = 1 : voted = 0
+        voter["last_vote"] = Time.now if voted == 1
         break
       end
+
       # error or log vote
-      if !votable
-        @locals = {:info => [:error => "Already voted."], :success => false}
+      case voted
+        when 0
+          @locals = {:info => [:error => "Already voted today, please wait 24hrs."], :success => false}
+          render :json => @locals
+          return
+        when 1
+          # we already updated date above before breaking
+        when 2
+          @idea.voted_by.push({:uid => current_user.id, :last_vote => Time.now})
+      end
+      # update vote count
+      type == 'up' ? @idea.votes += 1 : @idea.votes = @idea.votes - 1
+      params[:idea].delete(:id)
+      if @idea.update_attributes(params[:idea])
+        @locals = {:info => [:notice => "Idea updated."], :success => true}
       else
-        @idea.voted_by.push({:uid => current_user.id,:last_vote =>Time.now})
-        type == 'up' ? @idea.votes += 1 : @idea.votes = @idea.votes - 1
-        # update vote count
-        params[:idea].delete(:id)
-        if @idea.update_attributes(params[:idea])
-          @locals = {:info => [:notice => "Idea updated."], :success => true}
-        else
-          @locals = {:info => [:error => @idea.errors.full_messages.to_a], :success => false}
-        end
+        @locals = {:info => [:error => @idea.errors.full_messages.to_a], :success => false}
       end
     else
       @locals = {:info => [:error => "Not logged in."], :success => false}
     end
     render :json => @locals
   end
-
 end
