@@ -5,6 +5,7 @@ class Idea
   field :title, type: String
   field :votes, type: Integer, :default=>0
   field :description, type: String
+  field :voted_by, type: Array, :default=>[]
 
   belongs_to :user
   accepts_nested_attributes_for :user
@@ -14,6 +15,6 @@ class Idea
   validates_presence_of :description
   validates_presence_of :user
 
-  attr_accessible :title,:votes,:description,:user_id
+  attr_accessible :title,:votes,:description,:user_id,:voted_by
 
 end
