@@ -37,38 +37,9 @@ class IdeasController < ApplicationController
   # GET /ideas/1.json                                HTML AND AJAX
   #-------------------------------------------------------------------
   def update
-    #@idea = Idea.find(params[:id])
-    #params[:idea].delete(:id)
-    #if @idea.update_attributes(params[:idea])
-    #  @locals = {:info => [:notice => "Idea updated."], :success => true}
-    #else
-    #  @locals = {:info => [:error => @idea.errors.full_messages.to_a], :success => false}
-    #end
-
-    #render :json => @locals
-    #respond_to do |format|
-    #  if @idea.update_attributes(params[:idea][:info])
-    #    format.html { redirect_to(@idea) }
-    #    format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:notice => "We updated the idea."] } }
-    #  else
-    #    format.html { render :action => "edit",:status => :unprocessable_entity}
-    #    format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:error=>@idea.errors.full_messages.to_a] } }
-    #  end
-    #end
 
     @new_vote = params[:idea][:new_vote]
     @idea = Idea.find(params[:id])
-
-
-    puts "--------------------------------"
-    puts "--------------------------------"
-
-    puts @new_vote
-
-    puts "--------------------------------"
-    puts "--------------------------------"
-
-
 
     if current_user.present?
       # 0 24hrs pending, 1 updated last_vote, 2 create new vote
@@ -153,11 +124,4 @@ class IdeasController < ApplicationController
     render :json => @locals
   end
 
-  def upvote
-    vote('up')
-  end
-
-  def downvote
-    vote('down')
-  end
 end
