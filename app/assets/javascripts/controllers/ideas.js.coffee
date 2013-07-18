@@ -5,13 +5,13 @@ window.OpinioDev.controller 'ideaCtrl', ["$scope", "$rootScope", "$http", "Idea"
   console.log $scope.idea
 
   $scope.like = ()->
-    new Idea({vote: 'upvote', id: $scope.idea._id}).update().then((data)=>
+    new Idea({new_vote: 'up', id: $scope.idea._id}).update().then((data)=>
       if data.success == true
         $scope.idea.votes = parseInt($scope.idea.votes) + 1
     )
 
   $scope.dislike = ()->
-    new Idea({vote: 'downvote', id: $scope.idea._id}).update().then((data)=>
+    new Idea({new_vote: 'down', id: $scope.idea._id}).update().then((data)=>
       if data.success == true
         $scope.idea.votes = parseInt($scope.idea.votes) - 1
     )

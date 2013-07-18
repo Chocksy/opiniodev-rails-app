@@ -37,24 +37,44 @@ class IdeasController < ApplicationController
   # GET /ideas/1.json                                HTML AND AJAX
   #-------------------------------------------------------------------
   def update
-    @idea = Idea.find(params[:id])
-    params[:idea].delete(:id)
-    if @idea.update_attributes(params[:idea])
-      @locals = {:info => [:notice => "Idea updated."], :success => true}
-    else
-      @locals = {:info => [:error => @idea.errors.full_messages.to_a], :success => false}
-    end
 
+    @new_vote = params[:idea][:new_vote]
+    @idea = Idea.find(params[:id])
+
+    if current_user.present?
+      # 0 24hrs pending, 1 updated last_vote, 2 create new vote
+      voted = 2
+      # search votes by date in descending order, get latest vote of this user and break with outcome
+      @idea.voted_by.each do |voter|
+        next if voter["uid"]!= current_user.id
+        voter["last_vote"] < 1.day.ago ? voted = 1 : voted = 0
+        voter["last_vote"] = Time.now if voted == 1
+        break
+      end
+
+      # error or log vote
+      case voted
+        when 0
+          @locals = {:info => [:error => "Already voted today, please wait 24hrs."], :success => false}
+          render :json => @locals
+          return
+        when 1
+          # we already updated date above before breaking
+        when 2
+          @idea.voted_by.push({:uid => current_user.id, :last_vote => Time.now})
+      end
+      # update vote count
+      @new_vote == 'up' ? @idea.votes += 1 : @idea.votes = @idea.votes - 1
+      params[:idea].delete(:id)
+      if @idea.update_attributes(params[:idea])
+        @locals = {:info => [:notice => "Idea updated."], :success => true}
+      else
+        @locals = {:info => [:error => @idea.errors.full_messages.to_a], :success => false}
+      end
+    else
+      @locals = {:info => [:error => "Not logged in."], :success => false}
+    end
     render :json => @locals
-    #respond_to do |format|
-    #  if @idea.update_attributes(params[:idea][:info])
-    #    format.html { redirect_to(@idea) }
-    #    format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:notice => "We updated the idea."] } }
-    #  else
-    #    format.html { render :action => "edit",:status => :unprocessable_entity}
-    #    format.js {render :template=>"shared/ujs/form_errors.js.erb",:locals=>{ :info => [:error=>@idea.errors.full_messages.to_a] } }
-    #  end
-    #end
   end
 
   # GET /ideas/1/edit
@@ -104,50 +124,4 @@ class IdeasController < ApplicationController
     render :json => @locals
   end
 
-  def upvote
-    vote('up')
-  end
-
-  def downvote
-    vote('down')
-  end
-
-  private
-  def vote(type)
-    @idea = Idea.find(params[:id])
-    if current_user.present?
-      # 0 24hrs pending, 1 updated last_vote, 2 create new vote
-      voted = 2
-      # search votes by date in descending order, get latest vote of this user and break with outcome
-      @idea.voted_by.each do |voter|
-        next if voter["uid"]!= current_user.id
-        voter["last_vote"] < 1.day.ago ? voted = 1 : voted = 0
-        voter["last_vote"] = Time.now if voted == 1
-        break
-      end
-
-      # error or log vote
-      case voted
-        when 0
-          @locals = {:info => [:error => "Already voted today, please wait 24hrs."], :success => false}
-          render :json => @locals
-          return
-        when 1
-          # we already updated date above before breaking
-        when 2
-          @idea.voted_by.push({:uid => current_user.id, :last_vote => Time.now})
-      end
-      # update vote count
-      type == 'up' ? @idea.votes += 1 : @idea.votes = @idea.votes - 1
-      params[:idea].delete(:id)
-      if @idea.update_attributes(params[:idea])
-        @locals = {:info => [:notice => "Idea updated."], :success => true}
-      else
-        @locals = {:info => [:error => @idea.errors.full_messages.to_a], :success => false}
-      end
-    else
-      @locals = {:info => [:error => "Not logged in."], :success => false}
-    end
-    render :json => @locals
-  end
 end
